@@ -2,7 +2,7 @@ import { Alert, Col, Form, Row } from "reactstrap";
 import { useState } from "react";
 import Field from "../components/Field";
 import { checkAnagram } from "../utils/Utils";
-import { Button } from "@mui/material";
+import { Button, TextField } from "@mui/material";
 
 const Anagram = () => {
   const [first, setFirst] = useState("");
@@ -10,28 +10,31 @@ const Anagram = () => {
 
   const isAnagram = checkAnagram(first, second);
 
- 
   console.log(isAnagram);
   return (
     <div>
       <form>
         <Row>
           <Col>
-            <Field
+            <TextField
+              id="first"
+              label="First word"
+              variant="outlined"
+              helperText="Enter your first word"
               value={first}
               onChange={(e) => setFirst(e.target.value)}
-              name="first"
-              label="First word"
-              placeholder="Enter your first word"
+              fullWidth
             />
           </Col>
           <Col>
-            <Field
+          <TextField
+              id="second"
+              label="Second word"
+              variant="outlined"
+              helperText="Enter your second word"
               value={second}
               onChange={(e) => setSecond(e.target.value)}
-              name="second"
-              label="Second word"
-              placeholder="Enter your second word"
+              fullWidth
             />
           </Col>
         </Row>

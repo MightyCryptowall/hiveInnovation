@@ -1,6 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
+import { ThemeContext } from "../context/themeContext";
 
 const Dark = () => {
+
+  const { toggleTheme }  = useContext(ThemeContext);
+
   return (
     <svg
       viewBox="0 0 24 24"
