@@ -18,7 +18,7 @@ baseURL.interceptors.request.use(
 
       try {
           if(config.headers){
-            config.headers["bearer-key"] = `Bearer ${auth.accessToken}`;
+            config.headers["Authorization"] = `Bearer ${auth.accessToken}`;
           }
       } catch (error) {
         console.log(error);

@@ -1,13 +1,10 @@
 import * as api from "../api";
-import authEnums from "../enums/authEnums";
-import { dispatch } from "../store";
 
-const loginAsync = async (formData) => {
+const editProductAsync = async (editId, formData) => {
   try {
-    const response = await api.auth.logIn(formData);
+    const response = await api.product.edit(editId, formData);
 
     if (response.status === 200) {
-        dispatch({type: authEnums.LOGIN_SUCCESS, payload: response.data});
         return {error:""}
     }else{
 
@@ -21,4 +18,4 @@ const loginAsync = async (formData) => {
   }
 };
 
-export default loginAsync;
+export default editProductAsync;
