@@ -23,13 +23,13 @@ const CustomInput = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-const AppTextbox = ({id, label, value, fullWidth = false, error}) => {
+const AppTextbox = ({id, label, value, onChange, type = "text", fullWidth = false, error}) => {
     return (
-      <FormControl variant="standard"  fullWidth={fullWidth}>
+      <FormControl variant="standard" sx={{marginY:"0.5rem"}}  fullWidth={fullWidth}>
         <InputLabel shrink htmlFor={id}>
           {label}
         </InputLabel>
-        <CustomInput value={value} id={id}  />
+        <CustomInput value={value} id={id} name={id} type={type} onChange={onChange}  />
         {(error) && <Typography variant= "caption" sx={{color:"red"}}>{error}</Typography>}
       </FormControl>
     )

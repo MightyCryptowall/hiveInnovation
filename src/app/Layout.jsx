@@ -12,9 +12,12 @@ import DarkModeIcon from "@mui/icons-material/DarkMode";
 import LightModeIcon from "@mui/icons-material/LightMode";
 import MenuIcon from "@mui/icons-material/Menu";
 import { ThemeContext } from "../context/themeContext";
+import { useSelector } from "react-redux";
+import handleLogout from "../functions/handleLogout";
 
 const Layout = () => {
   const navigate = useNavigate();
+  const authStatus = useSelector((state) => state.auth);
 
   const { isDarkMode, toggleTheme } = useContext(ThemeContext);
   return (
@@ -44,9 +47,15 @@ const Layout = () => {
           <Button color="inherit" onClick={() => navigate("/products")}>
             Products
           </Button>
-          <Button color="inherit" onClick={() => navigate("/anagram")}>
-            Login
-          </Button>
+          {authStatus.accessToken ? (
+            <Button color="inherit" onClick={handleLogout}>
+              Logout
+            </Button>
+          ) : (
+            <Button color="inherit" onClick={() => navigate("/login")}>
+              Login
+            </Button>
+          )}
         </Toolbar>
       </AppBar>
       <Container>

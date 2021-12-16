@@ -2,9 +2,11 @@ import { useState } from "react";
 import { Button } from "reactstrap";
 import ProductModal from "../components/ProductModal";
 import ProductTable from "../components/ProductTable";
+import useAuthGuard from "../hooks/useAuthGuard";
 
 const Products = () => {
   const [isOpen, setOpen] = useState(false);
+  useAuthGuard();
   return (
     <div>
       <div className="d-flex justify-content-between align-items-center mb-4">

@@ -37,13 +37,7 @@ const Anagram = () => {
               onChange={(e) => setSecond(e.target.value)}
               fullWidth
             />
-          {/* <AppTextbox
-            id="username"
-            label="User Name"
-            value= "something cool"
-            error = "something went wrong"
-            fullWidth
-          /> */}
+          
           </Col>
         </Row>
       </form>

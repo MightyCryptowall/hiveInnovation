@@ -7,6 +7,7 @@ import Layout from "./Layout";
 import { ThemeContext, ThemeContextProvider } from "../context/themeContext";
 import { useContext } from "react";
 import { CssBaseline } from "@mui/material";
+import Login from "../pages/Login";
 
 const App = () => {
 
@@ -24,6 +25,7 @@ const App = () => {
               <Route path="/" element={<Main />} />
               <Route path="/products" element={<Products />} />
               <Route path="/anagram" element={<Anagram />} />
+              <Route path="/login" element={<Login />} />
             </Route>
           </Routes>
         </BrowserRouter>
