@@ -2,6 +2,7 @@ import { Alert, Col, Form, Row } from "reactstrap";
 import { useState } from "react";
 import Field from "../components/Field";
 import { checkAnagram } from "../utils/Utils";
+import { Button } from "@mui/material";
 
 const Anagram = () => {
   const [first, setFirst] = useState("");
@@ -9,9 +10,11 @@ const Anagram = () => {
 
   const isAnagram = checkAnagram(first, second);
 
+ 
+  console.log(isAnagram);
   return (
     <div>
-      <Form>
+      <form>
         <Row>
           <Col>
             <Field
@@ -32,7 +35,7 @@ const Anagram = () => {
             />
           </Col>
         </Row>
-      </Form>
+      </form>
       {first && second && (
         <Alert color={isAnagram ? "success" : "danger"}>
           {isAnagram
