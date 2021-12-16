@@ -3,6 +3,7 @@ import { useState } from "react";
 import Field from "../components/Field";
 import { checkAnagram } from "../utils/Utils";
 import { Button, TextField } from "@mui/material";
+import AppTextbox from "../components/AppTextbox";
 
 const Anagram = () => {
   const [first, setFirst] = useState("");
@@ -36,6 +37,13 @@ const Anagram = () => {
               onChange={(e) => setSecond(e.target.value)}
               fullWidth
             />
+          {/* <AppTextbox
+            id="username"
+            label="User Name"
+            value= "something cool"
+            error = "something went wrong"
+            fullWidth
+          /> */}
           </Col>
         </Row>
       </form>
