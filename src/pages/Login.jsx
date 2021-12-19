@@ -1,4 +1,5 @@
 import {
+  Alert,
   Button,
   CircularProgress,
   Grid,
@@ -6,11 +7,12 @@ import {
   Typography,
 } from "@mui/material";
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import AppButton from "../components/AppButton";
 import AppTextbox from "../components/AppTextbox";
 import loginAsync from "../functions/loginAsync";
+import authEnums from "../enums/authEnums";
 
 const Login = () => {
   const [loading, setLoading] = useState(false);
@@ -18,9 +20,12 @@ const Login = () => {
     username: "",
     password: "",
   });
+  const [formError, setFormError] = useState("");
+
+  const dispatch = useDispatch();
 
   const navigate = useNavigate();
-  const authStatus = useSelector(state => state.auth);
+  const authStatus = useSelector((state) => state.auth);
 
   const redirectUserWhenLogin = () => {
     if (authStatus.accessToken) {
@@ -29,7 +34,7 @@ const Login = () => {
   };
 
   useEffect(redirectUserWhenLogin, [redirectUserWhenLogin]);
-  
+
   const handleChange = (event) => {
     const target = event.target;
     setFormData((preState) => ({ ...preState, [target.name]: target.value }));
@@ -37,7 +42,12 @@ const Login = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     setLoading(true);
-    const { error } = await loginAsync(formData);
+    const { data, error } = await loginAsync(formData);
+    if(error){
+      setFormError(error);
+    }else{
+      dispatch({type: authEnums.LOGIN_SUCCESS, payload: data});
+    }
     setLoading(false);
   };
 
@@ -53,6 +63,11 @@ const Login = () => {
             Login
           </Typography>
           <br />
+          {formError && (
+            <Alert severity="error" sx={{ marginBottom: "1rem" }}>
+              {formError}
+            </Alert>
+          )}
           <AppTextbox
             label="UserName"
             id="username"

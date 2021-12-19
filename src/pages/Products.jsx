@@ -27,10 +27,14 @@ const Products = () => {
   const [formAction, setFormAction] = useState("create");
   const [categories, setCategories] = useState([]);
 
+
   const fetchRef = useRef();
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    setLoading(true);
+  const formRef = useRef();
+
+  const handleSubmit = async (values, actions) => {
+    actions.setSubmitting(true);
+    
+    const formData = values;
 
     let response;
     switch (formAction) {
@@ -45,7 +49,8 @@ const Products = () => {
     }
 
     refetchData();
-    setLoading(false);
+    actions.setSubmitting(false);
+    actions.resetForm();
     setFormData(defaultFormValue);
     setFormAction("create");
     setOpen(false);
@@ -57,13 +62,16 @@ const Products = () => {
 
   const changeToEdit = async (editDto) => {
     setEditId(editDto.id);
-    setFormData({
-      name: editDto.name,
-      amount: editDto.amount,
-      category: editDto.category,
-    });
+  
+    formRef.current?.setFieldValue("name", editDto.name);
+    formRef.current?.setFieldValue("amount", editDto.amount);
+    formRef.current?.setFieldValue("category", editDto.caetgory);
     setFormAction("edit");
     setOpen(true);
+    setTimeout(() => {
+      formRef.current?.setErrors({});
+    }, 100)
+   
   };
 
   const fetchCategories = async () => {
@@ -84,6 +92,12 @@ const Products = () => {
     refetchData();
   };
 
+  const handleCancel = () => {
+
+    setFormData(defaultFormValue);
+    setOpen(false)
+
+  }
   return (
     <AppFormContext.Provider
       value={{
@@ -94,6 +108,7 @@ const Products = () => {
         handleSubmit,
         formAction,
         categories,
+        formRef,
       }}
     >
       <div className="d-flex justify-content-between align-items-center mb-4">
@@ -115,7 +130,7 @@ const Products = () => {
       <ProductModal
         title="New Product"
         open={isOpen}
-        toggle={() => setOpen(!isOpen)}
+        toggle={handleCancel}
       />
     </AppFormContext.Provider>
   );

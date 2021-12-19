@@ -49,21 +49,7 @@ const ProductTable = ({ fetchRef, handleDelete, changeToEdit }) => {
     setFilterData(tableData.filter(data => {
       return data.name.includes(search)
     }))
-    // if(!search) {
-    //   setFilterData(tableData)
-    // }else{
-    //   setFilterData(tableData.filter(data => {
-    //     return data.includes(search)
-    //   }))
-    // }
-
-    // if (search && tableData.length === 0) {
-    //   return tableData;
-    // } else {
-    //   return tableData.filter((data) => {
-    //     return data.includes(search);
-    //   });
-    // }
+    
   };
 
   const tableRow = (data) => (

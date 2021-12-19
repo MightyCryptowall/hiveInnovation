@@ -1,5 +1,5 @@
-import { FormControl, InputBase, InputLabel, Typography } from '@mui/material';
-import { alpha, styled } from '@mui/material/styles';
+import { FormControl, FormHelperText, InputBase, InputLabel, Typography } from "@mui/material";
+import { alpha, styled } from "@mui/material/styles";
 export const CustomInput = styled(InputBase)(({ theme }) => ({
   "label + &": {
     marginTop: theme.spacing(3),
@@ -23,16 +23,38 @@ export const CustomInput = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-const AppTextbox = ({id, label, value, onChange, type = "text", fullWidth = false, error}) => {
-    return (
-      <FormControl variant="standard" sx={{marginY:"0.5rem"}}  fullWidth={fullWidth}>
-        <InputLabel shrink htmlFor={id}>
-          {label}
-        </InputLabel>
-        <CustomInput value={value} id={id} name={id} type={type} onChange={onChange}  />
-        {(true) && <Typography variant= "caption" sx={{color:"red"}}>{error}</Typography>}
-      </FormControl>
-    )
-}
+const AppTextbox = ({
+  id,
+  label,
+  value,
+  onChange,
+  onBlur,
+  type = "text",
+  fullWidth = false,
+  error,
+}) => {
+  return (
+    <FormControl
+      variant="standard"
+      sx={{ marginY: "0.3rem" }}
+      fullWidth={fullWidth}
+    >
+      <InputLabel shrink htmlFor={id}>
+        {label}
+      </InputLabel>
+      <CustomInput
+        value={value}
+        id={id}
+        name={id}
+        type={type}
+        onChange={onChange}
+        onBlur={onBlur}
+      />
+      {true && (
+        <FormHelperText id="component-error-text" sx={{color:"red"}}>{error}</FormHelperText>
+      )}
+    </FormControl>
+  );
+};
 
 export default AppTextbox;

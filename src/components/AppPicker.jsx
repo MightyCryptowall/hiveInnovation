@@ -29,6 +29,7 @@ const AppPicker = ({
   label,
   value,
   onChange,
+  onBlur,
   fullWidth = false,
   items,
   error,
@@ -47,7 +48,7 @@ const AppPicker = ({
         onChange={onChange}
         input={<CustomInput />}
         MenuProps={MenuProps}
-        //   inputProps={{ "aria-label": "Without label" }}
+        onBlur={onBlur}
       >
       
         {items.map((item) => (

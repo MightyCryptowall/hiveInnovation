@@ -5,7 +5,6 @@ const fetchDataAsync = async (api) => {
       
 
         const response = await api();
-        console.log(response);
         if (response.status === 200) {
             return {data: response.data, error:""}
         }else{
