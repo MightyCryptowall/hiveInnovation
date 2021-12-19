@@ -1,4 +1,4 @@
-import { createContext, useRef, useState } from "react";
+import { createContext, useEffect, useRef, useState } from "react";
 import { Button } from "@mui/material";
 import ProductModal from "../components/ProductModal";
 import ProductTable from "../components/ProductTable";
@@ -6,13 +6,15 @@ import useAuthGuard from "../hooks/useAuthGuard";
 import createProductAsync from "../functions/createProductAsync";
 import deleteProductAsync from "../functions/deleteProductAsync";
 import editProductAsync from "../functions/editProductAsync";
+import fetchDataAsync from "../functions/fetchDataAsync";
+import * as api from "../api";
 
 export const AppFormContext = createContext();
 
 const defaultFormValue = {
   name: "",
   amount: 0,
-  category: 0,
+  category: 1,
 };
 
 const Products = () => {
@@ -23,6 +25,7 @@ const Products = () => {
   const [loading, setLoading] = useState(false);
   const [editId, setEditId] = useState(null);
   const [formAction, setFormAction] = useState("create");
+  const [categories, setCategories] = useState([]);
 
   const fetchRef = useRef();
   const handleSubmit = async (event) => {
@@ -63,6 +66,19 @@ const Products = () => {
     setOpen(true);
   };
 
+  const fetchCategories = async () => {
+    const {data, error} = await fetchDataAsync(api.category.fetch);
+
+    if(!error){
+      console.log(data);
+      setCategories(data);
+    }
+  }
+
+  useEffect(() => {
+    fetchCategories();
+  },[])
+
   const handleDelete = async (id) => {
     const { error } = await deleteProductAsync(id);
     refetchData();
@@ -77,6 +93,7 @@ const Products = () => {
         setLoading,
         handleSubmit,
         formAction,
+        categories,
       }}
     >
       <div className="d-flex justify-content-between align-items-center mb-4">

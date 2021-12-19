@@ -1,6 +1,6 @@
 import { FormControl, InputBase, InputLabel, Typography } from '@mui/material';
 import { alpha, styled } from '@mui/material/styles';
-const CustomInput = styled(InputBase)(({ theme }) => ({
+export const CustomInput = styled(InputBase)(({ theme }) => ({
   "label + &": {
     marginTop: theme.spacing(3),
   },
@@ -30,7 +30,7 @@ const AppTextbox = ({id, label, value, onChange, type = "text", fullWidth = fals
           {label}
         </InputLabel>
         <CustomInput value={value} id={id} name={id} type={type} onChange={onChange}  />
-        {(error) && <Typography variant= "caption" sx={{color:"red"}}>{error}</Typography>}
+        {(true) && <Typography variant= "caption" sx={{color:"red"}}>{error}</Typography>}
       </FormControl>
     )
 }

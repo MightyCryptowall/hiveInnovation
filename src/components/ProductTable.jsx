@@ -10,21 +10,25 @@ import {
   Button,
   TablePagination,
   TableFooter,
+  LinearProgress,
 } from "@mui/material";
 import fetchDataAsync from "../functions/fetchDataAsync";
 import AppPagination from "./AppPagination";
+import * as api from "../api";
 
 const ProductTable = ({ fetchRef, handleDelete, changeToEdit }) => {
   const [page, setPage] = React.useState(0);
   const [tableData, setTableData] = useState([]);
+  const [loading, setLoading] = useState(false);
   const rowsPerPage = 5;
 
   const fetchTableData = async () => {
-    console.log("working");
-    const { data, error } = await fetchDataAsync();
+    setLoading(true);
+    const { data, error } = await fetchDataAsync(api.product.fetch);
     if (!error) {
       setTableData(data);
     }
+    setLoading(false);
   };
 
   fetchRef.current = fetchTableData;
@@ -65,7 +69,14 @@ const ProductTable = ({ fetchRef, handleDelete, changeToEdit }) => {
                     color="info"
                     size="small"
                     sx={{ marginRight: "0.5rem" }}
-                    onClick={() => changeToEdit({id:data.id, name:data.name, amount:data.amount, category: data.category.id})}
+                    onClick={() =>
+                      changeToEdit({
+                        id: data.id,
+                        name: data.name,
+                        amount: data.amount,
+                        category: data.category.id,
+                      })
+                    }
                   >
                     Edit
                   </Button>
@@ -81,15 +92,18 @@ const ProductTable = ({ fetchRef, handleDelete, changeToEdit }) => {
               </TableRow>
             ))}
         </TableBody>
-        <TableFooter>
-          <AppPagination
-            total={tableData.length}
-            rowsPerPage={rowsPerPage}
-            page={page}
-            setPage={setPage}
-          />
-        </TableFooter>
       </Table>
+
+      {loading ? (
+        <LinearProgress />
+      ) : (
+        <AppPagination
+          total={tableData.length}
+          rowsPerPage={rowsPerPage}
+          page={page}
+          setPage={setPage}
+        />
+      )}
     </TableContainer>
     // <Table>
     //   <thead>

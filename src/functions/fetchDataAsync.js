@@ -1,9 +1,11 @@
-import * as api from "../api";
 
-const fetchDataAsync = async () => {
+
+const fetchDataAsync = async (api) => {
     try {
-        const response = await api.product.fetch();
-    
+      
+
+        const response = await api();
+        console.log(response);
         if (response.status === 200) {
             return {data: response.data, error:""}
         }else{
