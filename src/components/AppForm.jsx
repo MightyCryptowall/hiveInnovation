@@ -37,7 +37,7 @@ const AppForm = ({handleCancel}) => {
             type="number"
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
-            value={formData.amount}
+            value={formik.values.amount}
             error={formik.errors.amount}
             fullWidth
           />
@@ -47,7 +47,7 @@ const AppForm = ({handleCancel}) => {
             id="category"
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
-            value={formData.category}
+            value={formik.values.category}
             error={formik.errors.category}
             items={categories}
             fullWidth
